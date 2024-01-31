@@ -200,7 +200,17 @@ void CellView::mouseReleaseEvent(QMouseEvent* event)
     const auto top = m_scrollBar ? m_scrollBar->value() : 0;
     const auto x = float(event->localPos().x());
     const auto y = float(event->localPos().y() + top);
-    doLeftClick(m_layout, x, y);
+
+    if (const auto* group = m_layout.groupAt(x, y);
+        group && group->titleBounds().containsPoint(x, y))
+    {
+      m_layout.setCollapsed(*group, !group->collapsed());
+      invalidate();
+    }
+    else
+    {
+      doLeftClick(m_layout, x, y);
+    }
   }
 }
 
