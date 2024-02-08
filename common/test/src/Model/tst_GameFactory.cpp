@@ -67,6 +67,7 @@ void setupTestEnvironment(IO::TestEnvironment& env)
     }
 })");
 
+
   env.createDirectory(userPath);
   env.createDirectory(userPath / "Quake");
   env.createFile(userPath / "Quake/CompilationProfiles.cfg", R"({
