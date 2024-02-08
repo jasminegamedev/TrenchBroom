@@ -632,13 +632,13 @@ Result<Assets::Palette> GameImpl::loadTexturePalette() const
 
 Result<std::vector<std::string>> GameImpl::doAvailableMods() const
 {
-  if (m_gamePath.empty() || IO::Disk::pathInfo(m_gamePath) != IO::PathInfo::Directory)
+  if (m_gamePath.empty() || IO::Disk::pathInfo(m_gamePath + "/../Mods") != IO::PathInfo::Directory)
   {
     return Result<std::vector<std::string>>{std::vector<std::string>{}};
   }
 
   const auto& defaultMod = m_config.fileSystemConfig.searchPath.filename().string();
-  const auto fs = IO::DiskFileSystem{m_gamePath};
+  const auto fs = IO::DiskFileSystem{m_gamePath + "/../Mods"};
   return fs
     .find(
       "", IO::TraversalMode::Flat, IO::makePathInfoPathMatcher({IO::PathInfo::Directory}))
